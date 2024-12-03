@@ -157,3 +157,31 @@
 .input:focus {  
     box-shadow: 5.5px 7px 0 black;  
 } */
+input {  
+    border-radius: 8px; /* Augmenter le rayon pour un look plus doux */  
+    line-height: 1.5;  
+    padding: 8px 12px; /* Augmenter le rembourrage pour plus d'espace */  
+    transition: box-shadow 150ms ease-in, border 150ms ease-in, background-color 150ms ease-in;  
+    border: 2px solid #dee1e2; /* Initial border color */  
+    color: rgb(1, 13, 7); /* Text color */  
+    background: white; /* Background color */  
+    display: block;  
+    height: 40px; /* Augmenter la hauteur pour un champ de formulaire plus grand */  
+}  
+
+input:hover {  
+    border-color: #C5CAE9; /* Couleur de la bordure au survol */  
+    box-shadow: 2px 2px 5px #C5CAE9; /* Ombre portée au survol */  
+}  
+
+input:active {  
+    border-color: #C5CAE9; /* Couleur de la bordure quand actif (cliqué) */  
+    box-shadow: 2px 2px 8px #C5CAE9; /* Ombre plus prononcée au clic */  
+}  
+
+input:focus {  
+    border-color: #C5CAE9; /* Couleur de la bordure quand il est en focus */  
+    background: white; /* Garder le fond blanc au focus */  
+    box-shadow: 2px 2px 5px #C5CAE9; /* Ombre portée au focus */  
+    outline: none; /* Supprimer l'outline par défaut */  
+}

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import AuthInterface from './AuthInterface'; // Import the AuthInterface component  
 import SignUpPage from './SignUp'; // Import the updated SignUpPage component  
 
+
 function App() {  
   return (  
     <Router>  
@@ -11,6 +12,7 @@ function App() {
         <Route path="/login" element={<AuthInterface />} />  
         <Route path="/signup" element={<SignUpPage />} />  
         <Route path="/" element={<Navigate replace to="/login" />} /> {/* Redirect root to /login */}  
+        
       </Routes>  
     </Router>  
   );  

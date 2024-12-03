@@ -40,7 +40,7 @@ function AuthInterface() {
              
              
           />  
-          <Link to="#" className="forgot-password">Forgot your password?</Link>  
+          <Link to="454545465#" className="forgot-password">Forgot your password?</Link>  
           <button className="sign-in-button1" >Sign In</button>  
         </div>  
       </div>  

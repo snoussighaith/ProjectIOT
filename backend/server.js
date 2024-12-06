@@ -1,8 +1,9 @@
+// server.js
 const express = require('express');
+const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
-const { Sequelize, DataTypes } = require('sequelize'); // Import Sequelize
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -12,65 +13,74 @@ const JWT_SECRET = 'your_jwt_secret'; // Change this in production
 app.use(cors());
 app.use(express.json());
 
-// Connect to MySQL
-const sequelize = new Sequelize('auth_example', 'root', 'password', {
-    host: 'localhost',
-    dialect: 'mysql'
-});
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/auth-example', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log('MongoDB Connected!'))
+.catch(err => console.error('Error connecting to MongoDB:', err));
 
-// Test connection
-sequelize.authenticate()
-    .then(() => console.log('MySQL Connected!'))
-    .catch(err => console.error('Unable to connect to MySQL:', err));
+// User Model
+const User = mongoose.model('User', new mongoose.Schema({
+    username: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true }
+}));
 
-// Define User model
-const User = sequelize.define('User', {
-    username: { type: DataTypes.STRING, allowNull: false },
-    email: { type: DataTypes.STRING, unique: true, allowNull: false },
-    password: { type: DataTypes.STRING, allowNull: false }
-});
-
-// Sync the database (creates tables if they don't exist)
-sequelize.sync()
-    .then(() => console.log('Database synced!'))
-    .catch(err => console.error('Error syncing database:', err));
-
-// Sign up route
+// Signup Route
 app.post('/api/signup', async (req, res) => {
-    const { username, email, password } = req.body;
-
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = await User.create({ username, email, password: hashedPassword });
-        res.status(201).send({ message: "User created", user: newUser });
-    } catch (err) {
-        if (err.name === 'SequelizeUniqueConstraintError') {
-            res.status(400).send({ message: "Email already in use" });
-        } else {
-            res.status(500).send({ message: "Internal server error", error: err });
+        const { username, email, password, confirmPassword } = req.body;
+
+        // Check if password and confirmPassword match
+        if (password !== confirmPassword) {
+            return res.status(400).send({ message: "Passwords do not match" });
         }
+
+        // Check if user already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(409).send({ message: "User already exists" });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new User({ username, email, password: hashedPassword });
+
+        await newUser.save();
+        res.status(201).send({ message: "User created" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: "Server error" });
     }
 });
 
-// Sign in route
+// Signin Route
 app.post('/api/signin', async (req, res) => {
-    const { email, password } = req.body;
-
     try {
-        const user = await User.findOne({ where: { email } });
-        if (!user) return res.status(404).send({ message: "User not found" });
+        const { email, password } = req.body;
 
+        // Check if user exists
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).send({ message: "User not found" });
+        }
+
+        // Check if password is valid
         const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) return res.status(401).send({ message: "Invalid password" });
+        if (!isPasswordValid) {
+            return res.status(401).send({ message: "Invalid password" });
+        }
 
-        const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: '1h' });
+        // Generate JWT token
+        const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
         res.json({ token });
-    } catch (err) {
-        res.status(500).send({ message: "Internal server error", error: err });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: "Server error" });
     }
 });
 
-// Start the server
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });

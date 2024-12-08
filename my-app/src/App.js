@@ -5,6 +5,7 @@ import AuthInterface from './components/AuthInterface';
 import SignUpPage from './components/SignUpPage';  
 import Settings from './components/Settings'; // Importation du composant Settings 
 import Dashboard from './components/Dashboard' 
+import HeaderSidebar from './components/HeaderSidebar';
 
 function App() {  
   return (  
@@ -14,6 +15,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />  
         <Route path="/settings" element={<Settings />} /> /* Route pour Settings */ 
         <Route path='/dashboard' element ={< Dashboard />} />
+        <Route path='/sideheader' element ={< HeaderSidebar />} />
         <Route path="/" element={<Navigate replace to="/login" />} />  
       </Routes>  
     </Router>  

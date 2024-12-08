@@ -1,0 +1,129 @@
+/* Container styles */
+.sidebar { 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    align-items: center; 
+    width: 20%; 
+    background-color: #C5CAE9; 
+    padding: 30px; 
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1); 
+    border-right: 2px solid #D1D5DB; 
+}
+
+.appContainer { 
+    display: flex; 
+    justify-content: space-between; 
+    height: 100vh; 
+    background-color: #F3F3FF; 
+    padding: 0; 
+    margin: 0; 
+}
+
+.logo { 
+    font-size: 24px; 
+    font-weight: bold; 
+    color: #333; 
+    margin-bottom: 30px; /* Increase for more space */ 
+}
+
+.searchInput { 
+    width: 100%; 
+    padding: 10px; 
+    margin: 20px 0; /* Space around search bar */ 
+    border-radius: 8px; 
+    border: 1px solid #ccc; 
+    transition: all 0.3s ease; 
+    font-size: 16px; 
+    background-color: #fff; 
+    margin-top: 15px; 
+}
+
+.searchInput:hover, 
+.searchInput:focus { 
+    border-color: #4f46e5; 
+    box-shadow: 0 0 10px rgba(79, 70, 229, 0.4); 
+}
+
+/* Menu styles */
+ul { 
+    list-style-type: none; 
+    width: 100%; 
+}
+
+li { 
+    width: 100%; 
+    margin: 10px 0; 
+}
+
+.a { 
+    text-decoration: none; 
+    color: #333; 
+    font-weight: bold; 
+    padding: 10px; 
+    display: block; 
+    border-radius: 6px; 
+    transition: all 0.3s ease; 
+}
+
+.a:hover { 
+    background-color: white; 
+    color: black; 
+    width: 100%; 
+}
+
+.a:active { 
+    color: black; 
+}
+
+/* Sidebar specific styles */
+.acceuil { 
+    display: flex; 
+}
+
+.menuList { 
+    list-style-type: none; 
+    padding: 0; 
+}
+
+.menuList li { 
+    margin-bottom: 51px; /* Spacing between list items */ 
+}
+
+.menuList a { 
+    text-decoration: none; 
+    color: #333; 
+    font-weight: bold; 
+}
+
+.menuList a:hover { 
+    color: black; 
+}
+
+.signout { 
+    margin-top: -17px; 
+    margin-bottom: 5px; 
+}
+
+/* Header styles */
+.header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-top: -34px; 
+}
+
+.notificationIcon { 
+    font-size: 24px; 
+    cursor: pointer; 
+    margin-left: 16px; 
+    gap: 16px; 
+}
+
+.notification { 
+    display: flex; 
+    flex-direction: row; 
+    margin-left: 0; 
+    justify-content: end; 
+    align-items: center; 
+}

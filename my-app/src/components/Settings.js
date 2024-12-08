@@ -1,8 +1,10 @@
+// src/components/Settings.js  
+
 import React, { useState } from 'react';  
-import styles from '../styles/Settings.module.css'; // Importer le CSS en tant que module  
-import logo from '../logo.png';  
-import profile from '../profile.png'
-import { FaCog, FaTachometerAlt, FaFileInvoiceDollar, FaChartLine, FaSignOutAlt, FaBell } from 'react-icons/fa'; // Importation des icônes  
+import { useNavigate } from 'react-router-dom';  
+import styles from '../styles/Settings.module.css'; 
+import Sidebar from './Sidebar'; // Importer le sidebar  
+import Header from './Header'; // Importer l'en-tête  
 
 const Settings = () => {  
   const [userName, setUserName] = useState('');  
@@ -12,29 +14,29 @@ const Settings = () => {
   const [threshold, setThreshold] = useState('');  
   const [pricePerKw, setPricePerKw] = useState('');  
 
+  const navigate = useNavigate();   
+
   const handleSubmit = (e) => {  
     e.preventDefault();  
-    // Handle form submission (e.g., send data to the backend)  
     console.log({ userName, email, password, threshold, pricePerKw });  
+    // Vous pouvez ajouter la logique pour sauvegarder les modifications ici  
+  };  
+
+  const handleSignOut = () => {  
+    localStorage.removeItem('token');   
+    navigate('/login');   
   };  
 
   return (  
     <div className={styles.appContainer}>  
-      <Sidebar />  
+      <Sidebar onSignOut={handleSignOut} />  
       <div className={styles.settingsContainer}>  
-        <div className={styles.header}>  
-          <h2>Settings</h2>
-          <div className={styles.notification}>
-            <FaBell className={styles.notificationIcon} /> {/* Ajout de l'icône de notification */} 
-            <img src={profile}  alt="Profile" style={{ width: '12%', height: 'auto' }} />
-          </div>  
-          
-        </div>  
+        <Header />  {/* Utilisez le Header ici */}  
         <hr />  
         <form onSubmit={handleSubmit}>  
           <div className={styles.profileSection}>  
             <div className={styles.profileImage}>  
-              👤 {/* Icon representing the user */}  
+              👤  
             </div>  
             <div className={styles.inputGroup}>  
               <input  
@@ -42,7 +44,7 @@ const Settings = () => {
                 placeholder="User Name"  
                 value={userName}  
                 onChange={(e) => setUserName(e.target.value)}  
-                className={styles.input}
+                className={styles.input}  
                 required  
               />  
               <input  
@@ -50,15 +52,15 @@ const Settings = () => {
                 placeholder="Email"  
                 value={email}  
                 onChange={(e) => setEmail(e.target.value)}  
-                className={styles.input}
+                className={styles.input}  
                 required  
               />  
               <input  
                 type="password"  
                 placeholder="Password"  
                 value={password}  
-                onChange={(e) => setPassword(e.target.value)} 
-                className={styles.input} 
+                onChange={(e) => setPassword(e.target.value)}   
+                className={styles.input}   
                 required  
               />  
               <input  
@@ -66,7 +68,7 @@ const Settings = () => {
                 placeholder="Confirm Password"  
                 value={confirmPassword}  
                 onChange={(e) => setConfirmPassword(e.target.value)}  
-                className={styles.input}
+                className={styles.input}  
                 required  
               />  
             </div>  
@@ -78,13 +80,13 @@ const Settings = () => {
               placeholder="Threshold in kW"  
               value={threshold}  
               onChange={(e) => setThreshold(e.target.value)}  
-              required  className={styles.input}
+              required className={styles.input}  
             />  
             <input  
               type="number"  
               placeholder="Price of 1 kW"  
               value={pricePerKw}  
-              onChange={(e) => setPricePerKw(e.target.value)}
+              onChange={(e) => setPricePerKw(e.target.value)}  
               className={styles.input}  
               required  
             />  
@@ -96,46 +98,5 @@ const Settings = () => {
     </div>  
   );  
 };  
-
-const Sidebar = () => (  
-  <nav className={styles.sidebar}>  
-    <div className={styles.logo}>  
-      <img src={logo} alt="Logo" style={{ width: '40%', height: 'auto' }} />  
-    </div>  
-    <input type="search" placeholder="Search..." className={styles.searchInput} />  
-    <ul>  
-      <div className={styles.acceuil}>  
-        <ul className={styles.menuList}>  
-          <li>  
-            <a className={styles.a} href="/dashboard">  
-              <FaTachometerAlt style={{ marginRight: '8px' }} /> Dashboard  
-            </a>  
-          </li>  
-          <li>  
-            <a className={styles.a} href="/consumption">  
-              <FaChartLine style={{ marginRight: '8px' }} /> Consumption  
-            </a>  
-          </li>  
-          <li>  
-            <a className={styles.a} href="/billing">  
-              <FaFileInvoiceDollar style={{ marginRight: '8px' }} /> Billing  
-            </a>  
-          </li>  
-          <li className={styles.a} >  
-            <a href="/settings">  
-              <FaCog style={{ marginRight: '8px' }} /> Settings  
-            </a>  
-          </li>   
-        </ul>  
-      </div>  
-
-      <li className={styles.signout}>  
-        <a className={styles.a}  href="/login">  
-          <FaSignOutAlt style={{ marginRight: '8px' }} /> Sign Out  
-        </a>  
-      </li>  
-    </ul>  
-  </nav>  
-);   
 
 export default Settings;

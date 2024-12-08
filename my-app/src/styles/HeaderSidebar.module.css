@@ -1,0 +1,89 @@
+/* Ajustement du conteneur principal */
+.container {
+    display: flex;
+    height: 100vh; /* Assurez-vous que l'application prend toute la hauteur de l'écran */
+  }
+  
+  /* Style pour la Sidebar */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 250px; /* Ajustement de la largeur */
+    background-color: #C5CAE9;
+    padding: 30px;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    border-right: 2px solid #D1D5DB;
+    position: fixed; /* Fixe la sidebar à gauche */
+    top: 0;
+    left: 0;
+    height: 100%; /* S'étend sur toute la hauteur de l'écran */
+  }
+  
+  /* Style pour le contenu principal */
+
+  
+  /* Style pour le Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    padding: 15px 30px;
+    
+    position: fixed; /* Fixer le header en haut */
+    top: 0;
+    left: 367px; /* Aligner avec la Sidebar */
+    width: 100%; /* Ajuster la largeur du header */
+    z-index: 10; /* S'assurer que le header est au-dessus du contenu */
+  }
+  
+  /* Style pour la zone principale du contenu sous le Header */
+  .mainContent {
+    margin-top: 80px; /* Créer un espace sous le header */
+    padding: 80px;
+  }
+  
+  /* Style pour les autres éléments */
+  .searchInput {
+    width: 100%;
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background-color: #fff;
+  }
+  
+  .a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 10px;
+    display: block;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+  
+  .a:hover {
+    background-color: white;
+    color: black;
+  }
+  
+  .signout {
+    margin-top: auto;
+  }
+  
+  .notification {
+    display: flex;
+    align-items: center;
+  }
+  
+  .notificationIcon {
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: 16px;
+    gap: 16px;
+  }
+  
